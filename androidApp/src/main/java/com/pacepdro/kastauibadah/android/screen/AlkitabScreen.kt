@@ -70,6 +70,7 @@ fun AlkitabWebView() {
             }
         )
 
+//        Bagian DisposableEffect
         DisposableEffect(key1 = webViewState) {
             onDispose {
                 webViewState.value.bundle = Bundle().apply {
