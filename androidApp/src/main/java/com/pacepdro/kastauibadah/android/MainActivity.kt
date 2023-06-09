@@ -15,12 +15,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyApplicationTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.primary
-                ) {
-                    GreetingView(Greeting().greet())
-                }
+//              Call Function Main App Compose
             }
         }
     }
