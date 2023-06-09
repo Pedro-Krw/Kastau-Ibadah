@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 
+// Bagian ini berisi layout home yang di atur dengan constaint layout
 @Composable
 fun home(){
 
@@ -27,6 +28,7 @@ fun home(){
 }
 
 
+// Bagian ini berisi layout dari bottom app bar
 @Composable
 fun BottomBar(){
         BottomAppBar() {
@@ -35,6 +37,7 @@ fun BottomBar(){
 }
 
 
+// Bagian preview
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun homePreciew(){
