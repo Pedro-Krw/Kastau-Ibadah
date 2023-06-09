@@ -3,13 +3,11 @@ package com.pacepdro.kastauibadah.android
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.pacepdro.kastauibadah.Greeting
-import com.pacepdro.kastauibadah.android.layout.home
+import com.pacepdro.kastauibadah.android.bottomnav.BottomNav
+import com.pacepdro.kastauibadah.android.screen.home
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +15,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
 //              Call Function Main App Compose
-                home()
+                BottomNav()
             }
         }
     }

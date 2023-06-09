@@ -19,16 +19,16 @@ sealed class BottomBarScreen(
 
     // for report
     object Calendar: BottomBarScreen(
-        route = "report",
-        title = "Report",
+        route = "calendar",
+        title = "Calendar",
         icon = R.drawable.calendar,
         icon_focused = R.drawable.calendar
     )
 
     // for report
     object Alkitab: BottomBarScreen(
-        route = "profile",
-        title = "Profile",
+        route = "alkitab",
+        title = "Alkitab",
         icon = R.drawable.book,
         icon_focused = R.drawable.book
     )
@@ -38,5 +38,6 @@ sealed class BottomBarScreen(
         title = "Profile",
         icon = R.drawable.person,
         icon_focused = R.drawable.person
+    )
 
 }

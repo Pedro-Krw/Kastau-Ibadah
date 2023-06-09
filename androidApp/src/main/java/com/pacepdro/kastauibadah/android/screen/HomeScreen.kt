@@ -1,8 +1,7 @@
-package com.pacepdro.kastauibadah.android.layout
+package com.pacepdro.kastauibadah.android.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
