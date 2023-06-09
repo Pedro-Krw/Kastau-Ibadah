@@ -2,6 +2,7 @@ package com.pacepdro.kastauibadah.android.screen
 
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.webkit.CookieManager
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
@@ -14,6 +15,9 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.constraintlayout.compose.ConstraintLayout
 import android.webkit.WebViewClient
 import android.webkit.WebChromeClient
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 
 @SuppressLint("JavascriptInterface")
 @Composable
@@ -22,6 +26,8 @@ fun AlkitabWebView() {
 
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
         val (webView) = createRefs()
+
+        val webViewState = remember { mutableStateOf(WebState()) }
 
         AndroidView(
             factory = {
@@ -49,7 +55,11 @@ fun AlkitabWebView() {
 
                     addJavascriptInterface(WebAppInterface(), "Android")
 
-                    loadUrl("https://alkitab.me/")
+                    if (webViewState.value.url == null) {
+                        loadUrl("https://alkitab.mobi/")
+                    } else {
+                        webViewState.value.bundle?.let { it1 -> restoreState(it1) }
+                    }
                 }
             },
             modifier = Modifier.constrainAs(webView) {
@@ -59,8 +69,21 @@ fun AlkitabWebView() {
                 bottom.linkTo(parent.bottom)
             }
         )
+
+        DisposableEffect(key1 = webViewState) {
+            onDispose {
+                webViewState.value.bundle = Bundle().apply {
+                    webView
+                }
+            }
+        }
     }
 }
+
+data class WebState(
+    var url: String? = null,
+    var bundle: Bundle? = null
+)
 
 class WebAppInterface {
     @JavascriptInterface
