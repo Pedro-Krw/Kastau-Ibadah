@@ -24,7 +24,7 @@ This repository contains a Kotlin Multiplatform project configured with a basic 
 
 1. Clone this repository to your local machine.
 ```
-git clone https://github.com/your/repository.git
+git clone https://github.com/pace-pdro/Kastau-Ibadah.git
 ```
 
 2. Open the project using Android Studio or your preferred code editor.
