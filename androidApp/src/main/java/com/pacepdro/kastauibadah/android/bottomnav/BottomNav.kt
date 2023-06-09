@@ -42,7 +42,7 @@ fun BottomNav() {
     {
         val bottombar = createRef()
         Scaffold(modifier = Modifier .constrainAs(bottombar){
-            bottom.linkTo(parent.bottom, 10.dp)
+            bottom.linkTo(parent.bottom, 0.dp)
         },
             bottomBar = { BottomBar(navController = navController) }
         ) {
@@ -68,7 +68,6 @@ fun BottomBar(navController: NavHostController) {
     Row(
         modifier = Modifier
             .padding(start = 10.dp, end = 10.dp, top = 8.dp, bottom = 8.dp)
-            .background(Color.White)
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
