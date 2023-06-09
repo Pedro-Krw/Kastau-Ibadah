@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 
-// Bagian ini berisi layout home yang di atur dengan constaint layout
+// Bagian ini berisi layout home yang diatur dengan constraint layout
 @Composable
 fun home(){
 
