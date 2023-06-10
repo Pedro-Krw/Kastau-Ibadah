@@ -2,19 +2,10 @@ package com.pacepdro.kastauibadah.android.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.BottomAppBar
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -25,7 +16,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import com.pacepdro.kastauibadah.android.R
+
 
 // Bagian ini berisi layout home yang diatur dengan constraint layout
 @Composable
@@ -39,12 +32,21 @@ fun home(){
         val button = createRef()
         val box = createRef()
         val card = createRef()
+        var images = listOf(
+            R.drawable.gereja,
+            R.drawable.gereja,
+            R.drawable.gereja,
 
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            Text(text = "Home Screen", fontSize = 20.sp)
-        }
+            val images = listOf(
+                R.drawable.gereja,
+                R.drawable.gereja,
+                R.drawable.gereja
+            )
+            ImageSlider(images)
+        })
 
     }
 
@@ -54,132 +56,42 @@ fun home(){
 
 // Bagian ini berisi layout utama
 
-
 @Composable
-fun HomeScreen() {
-    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
-        val (backgroundImage, card1, card2, card3, card4) = createRefs()
+fun ImageSlider(images: List<Int>) {
+    ConstraintLayout(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp)
+    ) {
+        val (image) = createRefs()
 
         Image(
-            painter = painterResource(R.drawable.home),
+            painter = painterResource(images[0]),
             contentDescription = null,
             modifier = Modifier
-                .constrainAs(backgroundImage) {
+                .constrainAs(image) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
-                }
-                .fillMaxWidth()
-                .height(200.dp),
+                    bottom.linkTo(parent.bottom)
+                    width = Dimension.fillToConstraints
+                    height = Dimension.fillToConstraints
+                },
             contentScale = ContentScale.Crop
         )
-
-        CardItem(
-            title = "Card 1",
-            description = "This is Card 1 description",
-            backgroundColor = Color(0xFFE57373),
-            imageRes = R.drawable.home,
-            modifier = Modifier.constrainAs(card1) {
-                top.linkTo(backgroundImage.bottom, margin = 16.dp)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            }
-        )
-
-        CardItem(
-            title = "Card 2",
-            description = "This is Card 2 description",
-            backgroundColor = Color(0xFF81C784),
-            imageRes = R.drawable.home,
-            modifier = Modifier.constrainAs(card2) {
-                top.linkTo(card1.bottom, margin = 16.dp)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            }
-        )
-
-        CardItem(
-            title = "Card 3",
-            description = "This is Card 3 description",
-            backgroundColor = Color(0xFF64B5F6),
-            imageRes = R.drawable.home,
-            modifier = Modifier.constrainAs(card3) {
-                top.linkTo(card2.bottom, margin = 16.dp)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            }
-        )
-
-        CardItem(
-            title = "Card 4",
-            description = "This is Card 4 description",
-            backgroundColor = Color(0xFFFFB74D),
-            imageRes = R.drawable.home,
-            modifier = Modifier.constrainAs(card4) {
-                top.linkTo(card3.bottom, margin = 16.dp)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            }
-        )
     }
 }
 
-@Composable
-fun CardItem(
-    title: String,
-    description: String,
-    backgroundColor: Color,
-    imageRes: Int,
-    modifier: Modifier = Modifier
-) {
-    Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(120.dp),
-        backgroundColor = backgroundColor,
-        elevation = 4.dp
-    ) {
-        Row(modifier = Modifier.fillMaxSize()) {
-            Image(
-                painter = painterResource(imageRes),
-                contentDescription = null,
-                modifier = Modifier
-                    .width(120.dp)
-                    .fillMaxHeight(),
-                contentScale = ContentScale.Crop
-            )
-
-            Column(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.h6,
-                    color = Color.White
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = description,
-                    style = MaterialTheme.typography.body1,
-                    color = Color.White
-                )
-            }
-        }
-    }
-}
-
-
-// Bagian preview
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun homePreciew(){
-       HomeScreen()
+fun PreviewImageSlider() {
+    val images = listOf(
+        R.drawable.gereja,
+        R.drawable.gereja,
+        R.drawable.gereja
+    )
+    ImageSlider(images)
 }
-
-
 
 // Main Home layout
 
