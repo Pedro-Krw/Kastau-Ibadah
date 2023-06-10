@@ -5,8 +5,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.pacepdro.kastauibadah.android.screen.AlkitabWebView
+import com.pacepdro.kastauibadah.android.screen.Greeting
 import com.pacepdro.kastauibadah.android.screen.JadwalScreen
-import com.pacepdro.kastauibadah.android.screen.home
 
 @Composable
 fun BottomNavGraph(
@@ -18,7 +18,7 @@ fun BottomNavGraph(
     ) {
         composable(route = BottomBarScreen.Home.route)
         {
-            home()
+        Greeting(name = String())
         }
         composable(route = BottomBarScreen.Calendar.route)
         {

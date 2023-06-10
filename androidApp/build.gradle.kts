@@ -61,6 +61,9 @@ dependencies {
 
 //    web view
     implementation ("androidx.webkit:webkit:1.4.0")
+// Image Slider
+    implementation ("io.coil-kt:coil-compose:1.4.0")
+
 
 
 
