@@ -24,8 +24,13 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -39,8 +44,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.rememberImagePainter
 import kotlinx.coroutines.delay
@@ -48,12 +56,19 @@ import kotlinx.coroutines.launch
 
 
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun HomeLayout(){
 
-    ConstraintLayout(modifier = Modifier .fillMaxSize() .background(androidx.compose.ui.graphics.Color.White)) {
+    ConstraintLayout(modifier = Modifier
+        .fillMaxSize()
+        .background(androidx.compose.ui.graphics.Color.White)) {
         val comp1 = createRef()
         val comp2 = createRef()
+        val comp3 = createRef()
+        val comp4 = createRef()
+        val comp5 = createRef()
+        val text = createRef()
 
         Card(modifier = Modifier
             .fillMaxWidth()
@@ -66,6 +81,123 @@ fun HomeLayout(){
             Greeting(name = String())
         }
 
+        Text(modifier = Modifier .padding(10.dp) .constrainAs(text){
+              top.linkTo(comp1.bottom,8.dp)
+        },
+            text = "Ibadah yang akan datang" , style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold))
+
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .shadow(4.dp, shape = RoundedCornerShape(10.dp))
+                .constrainAs(comp2) {
+                    top.linkTo(text.bottom, 20.dp)
+                },
+            elevation = 4.dp,
+            onClick = { /* Aksi yang ingin dilakukan saat card diklik */ }
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(text = "Ibadah Pkb", style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Bold))
+                Text(text = "This is the content of Card 1")
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Icon(
+                        Icons.Default.ArrowForward,
+                        contentDescription = "More",
+                        tint = androidx.compose.ui.graphics.Color.Gray,
+                        modifier = Modifier.clickable { /* Aksi yang ingin dilakukan saat ikon diklik */ }
+                    )
+                }
+            }
+        }
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .shadow(4.dp, shape = RoundedCornerShape(10.dp))
+                .constrainAs(comp3) {
+                    top.linkTo(comp2.bottom, 10.dp)
+                },
+            elevation = 4.dp
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(text = "Ibadah Pw", style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Bold))
+                Text(text = "This is the content of Card 2")
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Icon(
+                        Icons.Default.ArrowForward,
+                        contentDescription = "More",
+                        tint = androidx.compose.ui.graphics.Color.Gray,
+                        modifier = Modifier.clickable { /* Aksi yang ingin dilakukan saat ikon diklik */ }
+                    )
+                }
+            }
+        }
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .shadow(4.dp, shape = RoundedCornerShape(10.dp))
+                .constrainAs(comp4) {
+                    top.linkTo(comp3.bottom, 10.dp)
+                },
+            elevation = 4.dp
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(text = "Ibadah Pam", style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Bold))
+                Text(text = "This is the content of Card 3")
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Icon(
+                        Icons.Default.ArrowForward,
+                        contentDescription = "More",
+                        tint = androidx.compose.ui.graphics.Color.Gray,
+                        modifier = Modifier.clickable { /* Aksi yang ingin dilakukan saat ikon diklik */ }
+                    )
+                }
+            }
+        }
+
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .shadow(4.dp, shape = RoundedCornerShape(10.dp))
+                .constrainAs(comp5) {
+                    top.linkTo(comp4.bottom, 10.dp)
+                },
+            elevation = 4.dp
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(text = "Ibadah Par", style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Bold))
+                Text(text = "This is the content of Card 3")
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Icon(
+                        Icons.Default.ArrowForward,
+                        contentDescription = "More",
+                        tint = androidx.compose.ui.graphics.Color.Gray,
+                        modifier = Modifier.clickable { /* Aksi yang ingin dilakukan saat ikon diklik */ }
+                    )
+                }
+            }
+        }
+
+
         
     }
 
@@ -75,11 +207,12 @@ fun HomeLayout(){
 @Composable
 fun Greeting(name: String) {
     Column(modifier = Modifier) {
-        val images = listOf("https://media.npr.org/assets/img/2021/08/11/gettyimages-1279899488_wide-f3860ceb0ef19643c335cb34df3fa1de166e2761-s1100-c50.jpg",
-            "https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492__480.jpg",
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrfPnodZbEjtJgE-67C-0W9pPXK8G9Ai6_Rw&usqp=CAU",
-            "https://i.ytimg.com/vi/E9iP8jdtYZ0/maxresdefault.jpg",
-            "https://cdn.shopify.com/s/files/1/0535/2738/0144/articles/shutterstock_149121098_360x.jpg")
+        val images = listOf(
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgSGR1Z1K7ATlubd3n-9792gEFrOLPHCOlValvi-SboJHpXb1_ikzHb4fDyaOqkNmrh2h9OrI_Qh7O2vupCnCZ2QcN57uIyENLydbeXEkb_ukL3WCfMWRybJxpwX4N6C1ekXgCDiY8lqzBLuz6xVI15G5rs-h_Y4e8V1wQeLuKo9Pcq5zQno9bTG9I/s1280/satu.png",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh2GRCMGLLK87KbuERmS2w69-Lsy8neoLSxEPWupY25A_ApigBzUyg3VVSZASicDw9yiEkdKGGZFlf1rRuDNVViyHRXAbM9zdCmm_t2g_P6JaymvpYdRe8QFtn9rMFRve1Vu39D7Eph7NpvmKfEgEC7A28urcbxt-lnFq-EdcML9Wc4-5UjG42Xqf4/s1280/dua.png",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjDHH_Rvu-WjL3f1jRqSLrA2HvTJESSpC-SDfHKL0PEMZ2ZQvVVWMhIVqHNTcqDw7f0pkjrgwQKubTkgYmjxTVv9goxfp8kA7odLWLzivekTuelFovUC9y8I9vhvnaoRn-OdU7m_skhe_XEfHykfTfd6dJhMChdD-o_aMOH5om5F4rjehiaQjEmBgU/s1288/tiga.png",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiAOwN7GMorr-9geQVvEcOhalWjpHqZkTHc2SXIF2Z_FyU7IrTG8y05wnHtu4veO1n65pZ30u2cBEp3XtTizZgb0r_eRzo4nmLFfl4t5WQxvet87hKW6HBdanBjXvORPWOo6FdLoBG4KJDoRQiEZlNO6scogqsLULajqVP2Dny2mkltc_PgTSgxVhM/s1280/empat.png",
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiKB4mig3ubxUwt66q6dUd39-m9VbPmTFMSvjKFWNEVt9r_qUR-Q66PGBEJHoCrFdYT1T1oQd3DSmjpeEf6O2-TE4u-A2uCuIC2nduRSGd3Tfl0JxNubR9BDtA7XqCll_NJxWdItp7Z8he9upIwaGoB3Fd6jQfKc64WNckodXzQvK_wjPqcXS2KUdg/s1280/ima.png")
 
         ImageSlider(images)
     }
