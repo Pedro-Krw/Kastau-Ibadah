@@ -43,6 +43,7 @@ dependencies {
     implementation(project(":shared"))
     implementation("androidx.compose.ui:ui:1.4.3")
     implementation("androidx.compose.ui:ui-tooling:1.4.3")
+    implementation ("androidx.compose.ui:ui-util:1.4.3")
     implementation("androidx.compose.ui:ui-tooling-preview:1.4.3")
     implementation("androidx.compose.foundation:foundation:1.4.3")
     implementation("androidx.compose.material:material:1.4.3")
@@ -68,6 +69,8 @@ dependencies {
     // Paging Compose
     implementation ("com.google.accompanist:accompanist-pager:0.13.0")
     implementation ("com.google.accompanist:accompanist-pager-indicators:0.13.0")
+
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
 
 
 

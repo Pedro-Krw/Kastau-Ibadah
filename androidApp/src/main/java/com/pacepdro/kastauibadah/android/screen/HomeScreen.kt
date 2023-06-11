@@ -1,181 +1,222 @@
 package com.pacepdro.kastauibadah.android.screen
 
-import android.graphics.PorterDuff
-import android.widget.RatingBar
-import androidx.compose.animation.core.tween
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.HorizontalPagerIndicator
-import com.google.accompanist.pager.calculateCurrentOffsetForPage
-import com.google.accompanist.pager.rememberPagerState
-import com.pacepdro.kastauibadah.android.R
-import com.pacepdro.kastauibadah.android.model.natural
+import androidx.constraintlayout.compose.ConstraintLayout
+import coil.compose.rememberImagePainter
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.yield
-import kotlin.math.absoluteValue
+import kotlinx.coroutines.launch
 
 
-@ExperimentalPagerApi
+
 @Composable
-fun AutoSliding() {
-    val pagerState = rememberPagerState(
-        pageCount = natural.size,
-        initialOffscreenLimit = 2
-    )
+fun HomeLayout(){
 
-    LaunchedEffect(Unit) {
-        while (true) {
-            yield()
-            delay(2000)
-            pagerState.animateScrollToPage(
-                page = (pagerState.currentPage + 1) % (pagerState.pageCount),
-                animationSpec = tween(600)
-            )
+    ConstraintLayout(modifier = Modifier .fillMaxSize() .background(androidx.compose.ui.graphics.Color.White)) {
+        val comp1 = createRef()
+        val comp2 = createRef()
+
+        Card(modifier = Modifier
+            .fillMaxWidth()
+            .height(250.dp)
+            .constrainAs(comp1) {
+                top.linkTo(parent.top)
+            })
+        {
+// Layout pagging
+            Greeting(name = String())
         }
+
+        
     }
 
-    Column(
-        modifier = Modifier.fillMaxSize().background(androidx.compose.ui.graphics.Color.Blue)
-    ) {
-        Column(
-            modifier = Modifier
-                .height(50.dp)
-                .fillMaxWidth()
-                .background(androidx.compose.ui.graphics.Color.Magenta),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = "Auto Sliding",
-                color = androidx.compose.ui.graphics.Color.White,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }
+}
 
-        Spacer(modifier = Modifier.height(30.dp))
+// bagian Card List Utama
+@Composable
+fun Greeting(name: String) {
+    Column(modifier = Modifier) {
+        val images = listOf("https://media.npr.org/assets/img/2021/08/11/gettyimages-1279899488_wide-f3860ceb0ef19643c335cb34df3fa1de166e2761-s1100-c50.jpg",
+            "https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492__480.jpg",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrfPnodZbEjtJgE-67C-0W9pPXK8G9Ai6_Rw&usqp=CAU",
+            "https://i.ytimg.com/vi/E9iP8jdtYZ0/maxresdefault.jpg",
+            "https://cdn.shopify.com/s/files/1/0535/2738/0144/articles/shutterstock_149121098_360x.jpg")
 
-        HorizontalPager(
-            state = pagerState,
+        ImageSlider(images)
+    }
+}
+
+fun Drawable.toBitmap(): Bitmap {
+    if (this is BitmapDrawable) {
+        return this.bitmap
+    }
+    val bitmap = Bitmap.createBitmap(
+        intrinsicWidth.coerceAtLeast(1),
+        intrinsicHeight.coerceAtLeast(1),
+        Bitmap.Config.ARGB_8888
+    )
+    val canvas = Canvas(bitmap)
+    setBounds(0, 0, canvas.width, canvas.height)
+    draw(canvas)
+    return bitmap
+}
+
+
+@Composable
+fun NetworkImage(url: String, contentDescription: String?, width: Int, height: Int) {
+    val painter: Painter = rememberImagePainter(url)
+    Image(
+        painter = painter,
+        contentDescription = contentDescription,
+        contentScale = ContentScale.Crop,
+        modifier = Modifier
+            .width(width.dp)
+            .height(height.dp)
+    )
+}
+
+@Composable
+fun ImageSlider(images: List<Any>) {
+    var currentImageIndex by remember { mutableStateOf(0) }
+    var isAnimating by remember { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
+
+    Column(modifier = Modifier.fillMaxSize()) {
+
+        Box(
             modifier = Modifier
                 .weight(1f)
-                .padding(0.dp, 40.dp, 0.dp, 40.dp)
-        ) { page ->
-            Card(
-                modifier = Modifier
-                    .graphicsLayer {
-                        val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
-                        lerp(
-                            start = 0.85f,
-                            stop = 1f,
-                            fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                        ).also { scale ->
-                            scaleX = scale
-                            scaleY = scale
-                        }
-                    }
-                    .fillMaxWidth()
-                    .padding(15.dp, 0.dp, 15.dp, 0.dp),
-                shape = RoundedCornerShape(20.dp)
+                .height(100.dp)
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            // Scrollable Row of Cards
+            LazyRow(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                val natural = natural[page]
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(color = androidx.compose.ui.graphics.Color.LightGray)
-                        .align(Alignment.Center)
-                ) {
-                    Image(
-                        painter = painterResource(
-                            id = when (page) {
-                                1 -> R.drawable.gereja
-                                2 -> R.drawable.gereja
-                                3 -> R.drawable.gereja
-                                4 -> R.drawable.gereja
-                                5 -> R.drawable.gereja
-                                else -> R.drawable.gereja
-                            }
-                        ),
-                        contentDescription = "Image",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                    Column(
+                itemsIndexed(images) { index, image ->
+                    Card(
                         modifier = Modifier
-                            .align(Alignment.BottomStart)
-                            .padding(15.dp)
+                            .width(300.dp)
+                            .height(200.dp)
+                            .shadow(4.dp, shape = RoundedCornerShape(10.dp))
+                            .clickable {
+                                if (index != currentImageIndex && !isAnimating) {
+                                    isAnimating = true
+                                    coroutineScope.launch {
+                                        val delayMillis = 500L
+                                        // Wait for the card to change color before animating
+                                        delay(delayMillis / 2)
+                                        currentImageIndex = index
+                                        delay(delayMillis)
+                                        isAnimating = false
+                                    }
+                                }
+                            },
+                        elevation = 4.dp
                     ) {
-                        Text(
-                            text = natural.title,
-                            style = MaterialTheme.typography.h5,
-                            color = androidx.compose.ui.graphics.Color.White,
-                            fontWeight = FontWeight.Bold
-                        )
-
-                        val ratingBar = RatingBar(
-                            LocalContext.current, null, R.attr.ratingBarStyleSmall
-                        ).apply {
-                            rating = natural.rating
-                            progressDrawable.setColorFilter(
-                                android.graphics.Color.parseColor("#FFD700"),
-                                PorterDuff.Mode.SRC_ATOP
-                            )
-                        }
-                        AndroidView(
-                            factory = { ratingBar },
-                            modifier = Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp)
-                        )
-
-                        Text(
-                            text = natural.desc,
-                            style = MaterialTheme.typography.body1,
-                            color = androidx.compose.ui.graphics.Color.White,
-                            fontWeight = FontWeight.Normal,
-                            modifier = Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp)
+                        NetworkImage(
+                            contentDescription = "",
+                            url = image as String,
+                            width = 300,
+                            height = 200
                         )
                     }
                 }
+
+            }
+
+        }
+        // Dots Indicator
+//         Row(
+//             modifier = Modifier
+//                 .align(Alignment.CenterHorizontally)
+//                 .padding(16.dp)
+//         ) {
+//             for (i in images.indices) {
+//                 Surface(
+//                     modifier = Modifier
+//                         .size(10.dp)
+//                         .padding(4.dp)
+//                         .clip(CircleShape)
+//                         .background(
+//                             if (currentImageIndex == i) MaterialTheme.colors.primary
+//                             else androidx.compose.ui.graphics.Color.LightGray
+//                         )
+//                         .clickable {
+//                             if (i != currentImageIndex && !isAnimating) {
+//                                 isAnimating = true
+//                                 coroutineScope.launch {
+//                                     val delayMillis = 500L
+//                                     // Wait for the dot to change color before animating
+//                                     delay(delayMillis / 2)
+//                                     currentImageIndex = i
+//                                     delay(delayMillis)
+//                                     isAnimating = false
+//                                 }
+//                             }
+//                         },
+//                     color = androidx.compose.ui.graphics.Color.Transparent
+//                 ) {
+//
+//                 }
+//             }
+//         }
+//    }
+    }
+    // Automatic Image Slider
+    LaunchedEffect(currentImageIndex) {
+        while (true) {
+            delay(5000L)
+            if (!isAnimating) {
+                val nextIndex = (currentImageIndex + 1) % images.size
+                currentImageIndex = nextIndex
             }
         }
-
-        //Horizontal dot indicator
-        HorizontalPagerIndicator(
-            pagerState = pagerState,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(16.dp)
-
-        )
     }
 }
+
+
 
 
 
@@ -183,4 +224,5 @@ fun AutoSliding() {
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun HomePreview(){
+    HomeLayout()
 }
