@@ -1,104 +1,76 @@
 package com.pacepdro.kastauibadah.android.screen
 
 
-import android.annotation.SuppressLint
-import android.os.Bundle
-import android.webkit.CookieManager
-import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.constraintlayout.compose.ConstraintLayout
 import android.webkit.WebViewClient
-import android.webkit.WebChromeClient
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import android.webkit.WebResourceRequest
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 
-@SuppressLint("JavascriptInterface")
+
 @Composable
-fun AlkitabWebView() {
-    val context = LocalContext.current
+fun AlkitabScreen(){
 
-    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
-        val (webView) = createRefs()
+    ConstraintLayout(modifier = Modifier
+        .fillMaxSize()
+        .background(Color.White)) {
 
-        val webViewState = remember { mutableStateOf(WebState()) }
+        val text = createRef()
+        val alkitab = createRef()
+        
+        Card (modifier = Modifier
+            .fillMaxWidth()
+            .height(800.dp)
+            .padding(10.dp)
+            .shadow(8.dp, shape = RoundedCornerShape(15.dp))
+            .constrainAs(alkitab) {
+                bottom.linkTo(parent.top)
+            }){
+            WebViewComponent(url = "https://alkitab.me/" )
 
-        AndroidView(
-            factory = {
-                WebView(context).apply {
-                    // Nonaktifkan manajemen cookies
-                    val cookieManager = CookieManager.getInstance()
-                    cookieManager.setAcceptCookie(false)
-                    cookieManager.setAcceptThirdPartyCookies(this, false)
-
-                    // Konfigurasi WebView jika diperlukan
-                    settings.apply {
-                        // ...
-                    }
-
-                    webViewClient = object : WebViewClient() {
-                        override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                            // Load semua URL di dalam WebView
-                            return false
-                        }
-                    }
-
-                    webChromeClient = object : WebChromeClient() {
-                        // Konfigurasi tambahan jika diperlukan
-                    }
-
-                    addJavascriptInterface(WebAppInterface(), "Android")
-
-                    if (webViewState.value.url == null) {
-                        loadUrl("https://alkitab.mobi/")
-                    } else {
-                        webViewState.value.bundle?.let { it1 -> restoreState(it1) }
-                    }
-                }
-            },
-            modifier = Modifier.constrainAs(webView) {
-                top.linkTo(parent.top)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                bottom.linkTo(parent.bottom)
-            }
-        )
-
-//        Bagian DisposableEffect
-        DisposableEffect(key1 = webViewState) {
-            onDispose {
-                webViewState.value.bundle = Bundle().apply {
-                    webView
-                }
-            }
         }
-    }
-}
 
-data class WebState(
-    var url: String? = null,
-    var bundle: Bundle? = null
-)
-
-class WebAppInterface {
-    @JavascriptInterface
-    fun sendDataToApp(data: String) {
-        // Meng-handle data yang diterima dari web
-        // ...
     }
 
-    // Method lainnya jika diperlukan
 }
 
 
+@Composable
+fun WebViewComponent(url: String) {
+    AndroidView(
+        modifier = Modifier.fillMaxSize(),
+        factory = { context ->
+            val webView = WebView(context)
+            webView.settings.javaScriptEnabled = true
+            webView.settings.domStorageEnabled = true
+            webView.webViewClient = MyWebViewClient()
+            webView.loadUrl("https://alkitab.me/")
+            webView
+        }
+    )
+}
+
+class MyWebViewClient : WebViewClient() {
+    override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
+        view.loadUrl(request.url.toString())
+        return true
+    }
+}
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun Preview(){
-    AlkitabWebView()
+    AlkitabScreen()
 }

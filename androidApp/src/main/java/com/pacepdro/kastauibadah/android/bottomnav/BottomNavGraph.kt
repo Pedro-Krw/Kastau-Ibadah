@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.pacepdro.kastauibadah.android.screen.AlkitabWebView
+import com.pacepdro.kastauibadah.android.screen.AlkitabScreen
 import com.pacepdro.kastauibadah.android.screen.HomeLayout
 import com.pacepdro.kastauibadah.android.screen.JadwalScreen
 
@@ -26,7 +26,7 @@ fun BottomNavGraph(
         }
         composable(route = BottomBarScreen.Alkitab.route)
         {
-            AlkitabWebView()
+            AlkitabScreen()
         }
         composable(route = BottomBarScreen.Profile.route)
         {

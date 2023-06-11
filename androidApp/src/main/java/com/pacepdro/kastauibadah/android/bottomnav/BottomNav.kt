@@ -41,7 +41,7 @@ fun BottomNav() {
     ConstraintLayout( modifier = Modifier .fillMaxSize() .background(Color.White),)
     {
         val bottombar = createRef()
-        Scaffold(modifier = Modifier .constrainAs(bottombar){
+        Scaffold(modifier = Modifier .background(Color.White) .constrainAs(bottombar){
             bottom.linkTo(parent.bottom, 0.dp)
         },
             bottomBar = { BottomBar(navController = navController) }
