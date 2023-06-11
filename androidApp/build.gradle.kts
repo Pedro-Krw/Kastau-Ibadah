@@ -65,6 +65,11 @@ dependencies {
     implementation ("io.coil-kt:coil-compose:1.4.0")
 
 
+    // Paging Compose
+    implementation ("com.google.accompanist:accompanist-pager:0.13.0")
+    implementation ("com.google.accompanist:accompanist-pager-indicators:0.13.0")
+
+
 
 
 }
