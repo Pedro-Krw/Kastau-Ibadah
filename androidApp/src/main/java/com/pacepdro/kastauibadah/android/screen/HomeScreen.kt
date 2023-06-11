@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -51,6 +52,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.rememberImagePainter
+import com.pacepdro.kastauibadah.android.screen.sublayout.AlamatPam
+import com.pacepdro.kastauibadah.android.screen.sublayout.AlamatPar
+import com.pacepdro.kastauibadah.android.screen.sublayout.AlamatPkb
+import com.pacepdro.kastauibadah.android.screen.sublayout.AlamatPw
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -68,137 +73,49 @@ fun HomeLayout(){
         val comp3 = createRef()
         val comp4 = createRef()
         val comp5 = createRef()
-        val text = createRef()
+        val comp6 = createRef()
 
-        Card(modifier = Modifier
+        // Layout pagging
+
+        Column(modifier = Modifier
             .fillMaxWidth()
             .height(250.dp)
             .constrainAs(comp1) {
                 top.linkTo(parent.top)
             })
         {
-// Layout pagging
+
             Greeting(name = String())
         }
 
-        Text(modifier = Modifier .padding(10.dp) .constrainAs(text){
-              top.linkTo(comp1.bottom,8.dp)
-        },
-            text = "Ibadah yang akan datang" , style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold))
-
-        Card(
+        Text(
             modifier = Modifier
                 .fillMaxWidth()
-                .shadow(4.dp, shape = RoundedCornerShape(10.dp))
+                .padding(16.dp)
                 .constrainAs(comp2) {
-                    top.linkTo(text.bottom, 20.dp)
+                    top.linkTo(comp1.bottom, 8.dp)
                 },
-            elevation = 4.dp,
-            onClick = { /* Aksi yang ingin dilakukan saat card diklik */ }
-        ) {
-            Column(modifier = Modifier.padding(16.dp)) {
-                Text(text = "Ibadah Pkb", style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Bold))
-                Text(text = "This is the content of Card 1")
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp),
-                    horizontalArrangement = Arrangement.End
-                ) {
-                    Icon(
-                        Icons.Default.ArrowForward,
-                        contentDescription = "More",
-                        tint = androidx.compose.ui.graphics.Color.Gray,
-                        modifier = Modifier.clickable { /* Aksi yang ingin dilakukan saat ikon diklik */ }
-                    )
-                }
-            }
-        }
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .shadow(4.dp, shape = RoundedCornerShape(10.dp))
-                .constrainAs(comp3) {
-                    top.linkTo(comp2.bottom, 10.dp)
-                },
-            elevation = 4.dp
-        ) {
-            Column(modifier = Modifier.padding(16.dp)) {
-                Text(text = "Ibadah Pw", style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Bold))
-                Text(text = "This is the content of Card 2")
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp),
-                    horizontalArrangement = Arrangement.End
-                ) {
-                    Icon(
-                        Icons.Default.ArrowForward,
-                        contentDescription = "More",
-                        tint = androidx.compose.ui.graphics.Color.Gray,
-                        modifier = Modifier.clickable { /* Aksi yang ingin dilakukan saat ikon diklik */ }
-                    )
-                }
-            }
-        }
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .shadow(4.dp, shape = RoundedCornerShape(10.dp))
-                .constrainAs(comp4) {
-                    top.linkTo(comp3.bottom, 10.dp)
-                },
-            elevation = 4.dp
-        ) {
-            Column(modifier = Modifier.padding(16.dp)) {
-                Text(text = "Ibadah Pam", style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Bold))
-                Text(text = "This is the content of Card 3")
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp),
-                    horizontalArrangement = Arrangement.End
-                ) {
-                    Icon(
-                        Icons.Default.ArrowForward,
-                        contentDescription = "More",
-                        tint = androidx.compose.ui.graphics.Color.Gray,
-                        modifier = Modifier.clickable { /* Aksi yang ingin dilakukan saat ikon diklik */ }
-                    )
-                }
-            }
-        }
+            text = "Ibadah yang akan datang",
+            style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold)
+        )
 
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .shadow(4.dp, shape = RoundedCornerShape(10.dp))
-                .constrainAs(comp5) {
-                    top.linkTo(comp4.bottom, 10.dp)
-                },
-            elevation = 4.dp
-        ) {
-            Column(modifier = Modifier.padding(16.dp)) {
-                Text(text = "Ibadah Par", style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Bold))
-                Text(text = "This is the content of Card 3")
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp),
-                    horizontalArrangement = Arrangement.End
-                ) {
-                    Icon(
-                        Icons.Default.ArrowForward,
-                        contentDescription = "More",
-                        tint = androidx.compose.ui.graphics.Color.Gray,
-                        modifier = Modifier.clickable { /* Aksi yang ingin dilakukan saat ikon diklik */ }
-                    )
-                }
-            }
+        Column(modifier = Modifier
+            .padding(10.dp)
+            .constrainAs(comp3) {
+                top.linkTo(comp2.bottom)
+            })
+        {
+            AlamatPkb()
+            Spacer(modifier = Modifier .height(20.dp))
+            AlamatPw()
+            Spacer(modifier = Modifier .height(20.dp))
+            AlamatPam()
+            Spacer(modifier = Modifier .height(20.dp))
+            AlamatPar()
         }
 
 
-        
+
     }
 
 }
