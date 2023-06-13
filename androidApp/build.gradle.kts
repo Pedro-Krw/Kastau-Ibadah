@@ -67,10 +67,7 @@ dependencies {
 
 
     // Paging Compose
-    implementation ("com.google.accompanist:accompanist-pager:0.13.0")
-    implementation ("com.google.accompanist:accompanist-pager-indicators:0.13.0")
-
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
+    implementation ("com.github.denzcoskun:ImageSlideshow:0.1.2")
 
 
 
