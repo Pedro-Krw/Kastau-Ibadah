@@ -30,6 +30,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.google.accompanist.pager.*
 import com.pacepdro.kastauibadah.android.R
 import com.pacepdro.kastauibadah.android.model.kidsList
+import com.pacepdro.kastauibadah.android.screen.HomeLayout
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.yield
 import kotlin.math.absoluteValue
@@ -47,7 +48,7 @@ fun ViewPagerSlider(){
     LaunchedEffect(Unit){
         while (true){
             yield()
-            delay(2000)
+            delay(4000)
             pagerState.animateScrollToPage(
                 page = (pagerState.currentPage + 1) % (pagerState.pageCount),
                 animationSpec = tween(600)
@@ -55,7 +56,7 @@ fun ViewPagerSlider(){
         }
     }
 
-    Column(modifier = Modifier) {
+    Column(modifier = Modifier .background(Color.White)) {
 
         HorizontalPager(state = pagerState,
             modifier = Modifier
@@ -81,7 +82,6 @@ fun ViewPagerSlider(){
 
                 }
                 .fillMaxWidth(),
-                shape = RoundedCornerShape(20.dp)
             ) {
 
                 val newKids = kidsList[page]
@@ -104,7 +104,7 @@ fun ViewPagerSlider(){
 
                         Text(
                             text = newKids.title,
-                            style = MaterialTheme.typography.h5,
+                            style = MaterialTheme.typography.h6,
                             color = Color.White,
                             fontWeight = FontWeight.Bold
                         )
@@ -123,7 +123,7 @@ fun ViewPagerSlider(){
 //                        )
                         Text(
                             text = newKids.desc,
-                            style = MaterialTheme.typography.body1,
+                            style = MaterialTheme.typography.body2,
                             color = Color.White,
                             fontWeight = FontWeight.Normal,
                             modifier = Modifier.padding(0.dp,8.dp,0.dp,0.dp)
@@ -154,5 +154,5 @@ fun ViewPagerSlider(){
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun PreviewSlider(){
-    ViewPagerSlider()
+    HomeLayout()
 }

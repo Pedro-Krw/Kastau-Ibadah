@@ -32,6 +32,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -56,7 +57,7 @@ import kotlin.math.absoluteValue
 
 
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class, ExperimentalPagerApi::class)
 @Composable
 fun HomeLayout(){
 
@@ -74,7 +75,7 @@ fun HomeLayout(){
 
         Column(modifier = Modifier
             .fillMaxWidth()
-            .height(250.dp)
+            .height(280.dp)
             .constrainAs(comp1) {
                 top.linkTo(parent.top)
             })
@@ -93,8 +94,14 @@ fun HomeLayout(){
                     top.linkTo(comp1.bottom, 8.dp)
                 },
             text = "Ibadah yang akan datang",
-            style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold)
+            style = TextStyle(
+                fontFamily = FontFamily.Serif,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            ),
         )
+
+
 
         Column(modifier = Modifier
             .padding(10.dp)

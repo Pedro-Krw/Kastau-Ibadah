@@ -16,40 +16,40 @@ data class KidsData(
 
 val kidsList = listOf(
     KidsData(
-        "Sitting Pretty",
+        "Yesaya 40:31",
         4.0f,
         "All the Children in the word are cute and innocent for like this...",
-        R.drawable.satu
+        R.drawable.asatu
     ),
     KidsData(
-        "Love her Expression",
+        "Roma 8:28",
         4.0f,
         "All the Children in the word are cute and innocent for like this...",
-        R.drawable.dua
+        R.drawable.adua
     ),
     KidsData(
-        "Childhood Superman",
+        "Yeremia 29:11",
         4.0f,
         "All the Children in the word are cute and innocent for like this...",
-        R.drawable.tiga
+        R.drawable.atiga
     ),
     KidsData(
-        "Candle Night At Marina",
+        "Filipi 4:13",
         4.0f,
         "All the Children in the word are cute and innocent for like this...",
-        R.drawable.empat
+        R.drawable.aempat
     ),
     KidsData(
-        "Girl with Beautiful smile",
+        "Yosua 1:9",
         4.0f,
         "All the Children in the word are cute and innocent for like this...",
-        R.drawable.lima
+        R.drawable.alima
     ),
     KidsData(
-        "Bath Time",
+        "Yohanes 1:1",
         4.0f,
         "All the Children in the word are cute and innocent for like this...",
-        R.drawable.tiga
+        R.drawable.aenam
     )
 
 )
