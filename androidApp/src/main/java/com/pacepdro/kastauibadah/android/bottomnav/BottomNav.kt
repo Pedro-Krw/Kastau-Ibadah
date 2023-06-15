@@ -32,7 +32,9 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.pager.ExperimentalPagerApi
 
+@ExperimentalPagerApi
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun BottomNav() {
@@ -130,6 +132,7 @@ fun RowScope.AddItem(
     }
 }
 
+@ExperimentalPagerApi
 @Composable
 @Preview
 fun BottomNavPreview() {

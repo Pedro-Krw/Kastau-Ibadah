@@ -1,8 +1,14 @@
+@file:OptIn(ExperimentalPagerApi::class)
+
 package com.pacepdro.kastauibadah.android.screen
 
-import android.view.View
+
+import android.graphics.PorterDuff
+import android.widget.RatingBar
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,34 +16,43 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.util.lerp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.constraintlayout.compose.ConstraintLayout
-import coil.compose.rememberImagePainter
-import com.denzcoskun.imageslider.models.SlideModel
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.HorizontalPagerIndicator
+import com.google.accompanist.pager.calculateCurrentOffsetForPage
+import com.google.accompanist.pager.rememberPagerState
 import com.pacepdro.kastauibadah.android.R
 import com.pacepdro.kastauibadah.android.screen.sublayout.AlamatPam
 import com.pacepdro.kastauibadah.android.screen.sublayout.AlamatPar
 import com.pacepdro.kastauibadah.android.screen.sublayout.AlamatPkb
 import com.pacepdro.kastauibadah.android.screen.sublayout.AlamatPw
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.yield
+import kotlin.math.absoluteValue
+
 
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -65,10 +80,8 @@ fun HomeLayout(){
         {
 
 //            ini BAGIAN TARUH IMAGE SLIDER
-            ImageSlider(imageList = listOf(
-                SlideModel("https://bit.ly/2YoJ77H", "The animal population decreased by 58 percent in 42 years."),
-                SlideModel("https://bit.ly/2BteuF2", "Elephants and tigers may become extinct."),
-                SlideModel("https://bit.ly/3fLJf72", "And people do that.")))
+
+
         }
 
         Text(
@@ -104,47 +117,7 @@ fun HomeLayout(){
 }
 
 
-@Composable
-fun ImageSlider(imageList: List<SlideModel>) {
 
-    AndroidView(factory = {
-        View.inflate(it, R.layout.image_slider, null)
-    })
-
-    var imageList = listOf(
-        SlideModel("https://bit.ly/2YoJ77H", "The animal population decreased by 58 percent in 42 years."),
-        SlideModel("https://bit.ly/2BteuF2", "Elephants and tigers may become extinct."),
-        SlideModel("https://bit.ly/3fLJf72", "And people do that.")
-    )
-
-    ImageSlider(imageList)
-
-    var currentItem by remember { mutableStateOf(0) }
-
-    Box(modifier = Modifier.fillMaxSize()) {
-        Image(
-            painter = rememberImagePainter(data = imageList[currentItem].imageUrl),
-            contentDescription = imageList[currentItem].title,
-            contentScale = ContentScale.FillBounds,
-            modifier = Modifier.fillMaxSize()
-        )
-
-        IconButton(
-            onClick = { currentItem = (currentItem + 1) % imageList.size },
-            modifier = Modifier.align(Alignment.CenterEnd)
-        ) {
-            Icon(
-                imageVector = Icons.Default.ArrowForward,
-                contentDescription = "Next Image",
-                tint = androidx.compose.ui.graphics.Color.White
-            )
-        }
-    }
-
-
-
-// batas akhir
-}
 
 
 

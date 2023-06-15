@@ -4,10 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.pacepdro.kastauibadah.android.screen.AlkitabScreen
 import com.pacepdro.kastauibadah.android.screen.HomeLayout
 import com.pacepdro.kastauibadah.android.screen.JadwalScreen
+import com.pacepdro.kastauibadah.android.view.ViewPagerSlider
 
+@ExperimentalPagerApi
 @Composable
 fun BottomNavGraph(
     navController: NavHostController
@@ -22,7 +25,7 @@ fun BottomNavGraph(
         }
         composable(route = BottomBarScreen.Calendar.route)
         {
-            JadwalScreen()
+        ViewPagerSlider()
         }
         composable(route = BottomBarScreen.Alkitab.route)
         {
