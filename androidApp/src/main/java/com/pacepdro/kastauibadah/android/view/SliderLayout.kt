@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.pacepdro.kastauibadah.android.view
 
 import android.graphics.PorterDuff
@@ -20,6 +22,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
@@ -52,27 +55,10 @@ fun ViewPagerSlider(){
         }
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        Column(modifier = Modifier
-            .height(50.dp)
-            .fillMaxWidth()
-            .background(color = Color.Magenta),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(text = "View Pager Slide",
-                color = Color.White,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
-            )
+    Column(modifier = Modifier) {
 
-        }
-
-        Spacer(modifier = Modifier.height(30.dp))
         HorizontalPager(state = pagerState,
             modifier = Modifier
-                .weight(1f)
-                .padding(0.dp, 40.dp, 0.dp, 40.dp)
         ) { page ->
             Card(modifier = Modifier
                 .graphicsLayer {
@@ -94,23 +80,21 @@ fun ViewPagerSlider(){
                     )
 
                 }
-                .fillMaxWidth()
-                .padding(25.dp, 0.dp, 25.dp, 0.dp),
+                .fillMaxWidth(),
                 shape = RoundedCornerShape(20.dp)
             ) {
 
                 val newKids = kidsList[page]
                 Box(modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.LightGray)
-                    .align(Alignment.Center)
+                    .fillMaxWidth()
+                    .background(Color.White)
                 ) {
                     Image(painter = painterResource(
                         id = newKids.imgUri
                     ),
                         contentDescription = "Image",
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier .fillMaxWidth()
                     )
 
                     Column(modifier = Modifier
@@ -125,7 +109,7 @@ fun ViewPagerSlider(){
                             fontWeight = FontWeight.Bold
                         )
                         val ratingBar = RatingBar(
-                            LocalContext.current, null, com.google.android.material.R.attr.ratingBarStyleSmall
+                            LocalContext.current, null,
                         ).apply {
                             rating = newKids.rating
                             progressDrawable.setColorFilter(
@@ -134,9 +118,9 @@ fun ViewPagerSlider(){
                             )
                         }
 
-                        AndroidView(factory ={ratingBar},
-                            modifier = Modifier.padding(0.dp,8.dp,0.dp,0.dp)
-                        )
+//                        AndroidView(factory ={ratingBar},
+//                            modifier = Modifier.padding(0.dp,8.dp,0.dp,0.dp)
+//                        )
                         Text(
                             text = newKids.desc,
                             style = MaterialTheme.typography.body1,
@@ -164,4 +148,11 @@ fun ViewPagerSlider(){
 
     }
 
+}
+
+@OptIn(ExperimentalPagerApi::class)
+@Preview(showSystemUi = true, showBackground = true)
+@Composable
+fun PreviewSlider(){
+    ViewPagerSlider()
 }

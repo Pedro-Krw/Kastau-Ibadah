@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
 //              Call Function Main App Compose
-                ViewPagerSlider()
+               BottomNav()
             }
         }
     }

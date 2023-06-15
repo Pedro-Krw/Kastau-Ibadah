@@ -19,37 +19,37 @@ val kidsList = listOf(
         "Sitting Pretty",
         4.0f,
         "All the Children in the word are cute and innocent for like this...",
-        R.drawable.gereja
+        R.drawable.satu
     ),
     KidsData(
         "Love her Expression",
         4.0f,
         "All the Children in the word are cute and innocent for like this...",
-        R.drawable.gereja
+        R.drawable.dua
     ),
     KidsData(
         "Childhood Superman",
         4.0f,
         "All the Children in the word are cute and innocent for like this...",
-        R.drawable.home
+        R.drawable.tiga
     ),
     KidsData(
         "Candle Night At Marina",
         4.0f,
         "All the Children in the word are cute and innocent for like this...",
-        R.drawable.person
+        R.drawable.empat
     ),
     KidsData(
         "Girl with Beautiful smile",
         4.0f,
         "All the Children in the word are cute and innocent for like this...",
-        R.drawable.gereja
+        R.drawable.lima
     ),
     KidsData(
         "Bath Time",
         4.0f,
         "All the Children in the word are cute and innocent for like this...",
-        R.drawable.gereja
+        R.drawable.tiga
     )
 
 )

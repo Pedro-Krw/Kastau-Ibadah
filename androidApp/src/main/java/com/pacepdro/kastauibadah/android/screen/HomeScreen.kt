@@ -49,6 +49,7 @@ import com.pacepdro.kastauibadah.android.screen.sublayout.AlamatPam
 import com.pacepdro.kastauibadah.android.screen.sublayout.AlamatPar
 import com.pacepdro.kastauibadah.android.screen.sublayout.AlamatPkb
 import com.pacepdro.kastauibadah.android.screen.sublayout.AlamatPw
+import com.pacepdro.kastauibadah.android.view.ViewPagerSlider
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.yield
 import kotlin.math.absoluteValue
@@ -80,7 +81,7 @@ fun HomeLayout(){
         {
 
 //            ini BAGIAN TARUH IMAGE SLIDER
-
+        ViewPagerSlider()
 
         }
 
